@@ -30,6 +30,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Configuración de EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.use(express.static('img'));
+
 
 // Ruta raíz / debe redirigir a la página de login
 app.get('/', (req, res) => {
