@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orquídeas - Gestión</title>
+    <!-- Integración de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        nav {
+            margin-top: 20px;
+            background-color: #333;
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            padding: 14px 20px;
+            text-align: center;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .content {
+            padding: 20px;
+            background-color: white;
+            margin-top: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 class="display-4">Gestiona tus Orquídeas</h1>
+        <p class="lead">Aquí puedes agregar y ver tus orquídeas.</p>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Orquideas</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Profile">Perfil de Usuario</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Cerrar sesión</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="content">
+        <h3>Agregar Nueva Orquídea</h3>
+        <form id="addOrquideaForm" method="POST" action="/orquideas/add">
+            <div class="form-group">
+                <label for="nombreOrquidea">Nombre de la Orquídea</label>
+                <input type="text" class="form-control" id="nombreOrquidea" name="nombreOrquidea" required>
+            </div>
+            <div class="form-group">
+                <label for="tipoOrquidea">Tipo de Orquídea</label>
+                <input type="text" class="form-control" id="tipoOrquidea" name="tipoOrquidea" required>
+            </div>
+            <div class="form-group">
+                <label for="fechaIngreso">Fecha de Ingreso</label>
+                <input type="date" class="form-control" id="fechaIngreso" name="fechaIngreso" required>
+            </div>
+            <div class="form-group">
+                <label for="frecuenciaRiego">Frecuencia de Riego</label>
+                <input type="text" class="form-control" id="frecuenciaRiego" name="frecuenciaRiego" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar Orquídea</button>
+        </form>
+
+        <h3>Últimas Orquídeas</h3>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Tipo de Orquídea</th>
+                    <th>Fecha de Ingreso</th>
+                    <th>Frecuencia de Riego</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Este código muestra las orquídeas en la base de datos -->
+                <% orquideas.forEach(orquidea => { %>
+                    <tr>
+                        <td><%= orquidea.id_orquidea %></td>
+                        <td><%= orquidea.nombre %></td>
+                        <td><%= orquidea.tipo_orquidea %></td>
+                        <td><%= orquidea.fecha_ingreso %></td>
+                        <td><%= orquidea.frecuencia_riego %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Mi Aplicación. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Cargar librerías de jQuery y Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

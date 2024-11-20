@@ -3,16 +3,18 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const mysql = require('mysql2');
 const bcrypt = require('bcrypt');
+const alertaRoutes = require('./routes/alertaRoutes');
+const orquideaRoutes = require('./routes/orquideaRoutes'); // Importación correcta, solo una vez
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Conexión a la base de datos MySQL
 const db = mysql.createConnection({
-    host: 'localhost', // o tu host de base de datos
-    user: 'root',      // tu usuario de MySQL
-    password: '',      // tu contraseña de MySQL
-    database: 'orquideas_db'  // Nombre de tu base de datos
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'orquideas_db'  // Base de datos correcta
 });
 
 // Conectar a la base de datos
@@ -30,8 +32,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Configuración de EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.use(express.static('img'));
-
+app.use(express.static(path.join(__dirname, 'public'))); // Asegúrate de servir los archivos estáticos correctamente
 
 // Ruta raíz / debe redirigir a la página de login
 app.get('/', (req, res) => {
@@ -89,6 +90,18 @@ app.get('/dashboard', (req, res) => {
     res.render('dashboard', { username: 'admin', productos });
 });
 
+// Ruta para cerrar sesión (GET)
+app.get('/logout', (req, res) => {
+    // Aquí podrías destruir la sesión o realizar otras acciones
+    res.redirect('/login');
+});
+
+// Usar las rutas de alerta
+app.use('/alertas', alertaRoutes);
+
+// Usar las rutas de orquídeas (solo una vez)
+app.use('/api', orquideaRoutes);
+
 // Ruta de registro (GET)
 app.get('/register', (req, res) => {
     res.render('register', { message: null });
@@ -124,13 +137,40 @@ app.post('/register', (req, res) => {
     });
 });
 
-// Ruta para cerrar sesión (GET)
-app.get('/logout', (req, res) => {
-    // Aquí podrías destruir la sesión o realizar otras acciones
-    res.redirect('/login');
+// Ruta para obtener las orquídeas (GET)
+app.get('/orquideas', (req, res) => {
+    // Obtener las orquídeas de la base de datos
+    const query = 'SELECT * FROM orquideas';
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error('Error al obtener las orquídeas:', err);
+            return res.status(500).send('Error al obtener las orquídeas');
+        }
+        // Renderizar la vista de orquídeas
+        res.render('orquideas', { orquideas: results });
+    });
 });
 
-// Servir el servidor en el puerto 3000
+// Ruta para agregar una nueva orquídea (GET y POST)
+app.get('/orquideas/nueva', (req, res) => {
+    res.render('nuevaOrquidea', { message: null });
+});
+
+app.post('/orquideas/nueva', (req, res) => {
+    const { nombre, tipo_orquidea, fecha_ingreso, frecuencia_riego } = req.body;
+    
+    // Insertar la nueva orquídea en la base de datos
+    const query = 'INSERT INTO orquideas (nombre, tipo_orquidea, fecha_ingreso, frecuencia_riego) VALUES (?, ?, ?, ?)';
+    db.query(query, [nombre, tipo_orquidea, fecha_ingreso, frecuencia_riego], (err, result) => {
+        if (err) {
+            console.error('Error al agregar la orquídea:', err);
+            return res.status(500).send('Error al agregar la orquídea');
+        }
+        res.redirect('/orquideas');
+    });
+});
+
+// Servir el servidor en el puerto configurado
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
 });

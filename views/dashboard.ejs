@@ -1,48 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Dashboard - Plantas</title>
+    <!-- Integración de Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Estilo Personalizado -->
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            background-color: #e9f7ef; /* Fondo suave verde claro */
+            color: #2d2d2d;
+            margin-top: 20px;
         }
+
         header {
-            background-color: #4CAF50;
+            background-color: #2e8b57; /* Verde oscuro */
             color: white;
-            padding: 15px;
+            padding: 20px 0;
             text-align: center;
         }
-        nav {
-            margin-top: 20px;
-            background-color: #333;
-            overflow: hidden;
+
+        header h1 {
+            font-size: 2.5rem;
         }
+
+        nav {
+            background-color: #4CAF50;
+            text-align: center; /* Centrar elementos del navbar */
+        }
+
         nav a {
-            float: left;
-            display: block;
             color: white;
-            padding: 14px 20px;
+            padding: 12px 20px;
+            font-size: 1rem;
             text-align: center;
             text-decoration: none;
+            transition: background-color 0.3s;
         }
+
         nav a:hover {
-            background-color: #ddd;
-            color: black;
+            background-color: #388e3c;
         }
+
         .content {
-            padding: 20px;
+            padding: 30px;
             background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
             margin-left: 20px;
             margin-right: 20px;
         }
+
         footer {
-            background-color: #333;
+            background-color: #2e8b57;
             color: white;
             text-align: center;
             padding: 10px;
@@ -50,52 +64,158 @@
             bottom: 0;
             width: 100%;
         }
+
+        .navbar-toggler {
+            border-color: #fff;
+        }
+
+        .navbar-toggler-icon {
+            background-color: #fff;
+        }
+
+        /* Imagen de fondo en el header */
+        header {
+            background: url('https://images.unsplash.com/photo-1603341373074-89a27cda3eb9?crop=entropy&cs=tinysrgb&fit=max&ixid=MnwzNjUyOXwwfDF8c2VhY3J8MXx8cGxhbnRzfGVufDB8fHx8fDE2Nzc2Mzg4Mzc&ixlib=rb-1.2.1&q=80&w=1080') no-repeat center center;
+            background-size: cover;
+            color: white;
+        }
+
+        /* Estilo de botones */
+        .btn-custom {
+            background-color: #2e8b57;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .btn-custom:hover {
+            background-color: #388e3c;
+            color: white;
+        }
+
+        /* Alertas */
+        #alert-message {
+            display: none;
+            margin-top: 20px;
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        /* Estilo para el contenido dentro de las páginas principales */
+        .card-custom {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .card-custom img {
+            border-radius: 8px;
+        }
+
+        .card-custom .card-body {
+            padding: 20px;
+            background-color: #f0f8f0;
+        }
     </style>
 </head>
+
 <body>
 
-    <header>
-        <h1>Bienvenido al Dashboard</h1>
-        <p>Hola, <%= username %>! Aquí puedes ver tu información.</p>
-    </header>
-
-    <nav>
-        <a href="/profile">Mi Perfil</a>
-        <a href="/settings">Configuraciones</a>
-        <a href="/logout">Cerrar sesión</a>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <a class="navbar-brand" href="#">Orquideas</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/CalendarioRiego">Calendario Riego</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Sensores">Sensores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Orquideas/add">Orquídeas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/CondicionesAmbientales">Condiciones Ambientales</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Usuario">Usuario</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Cerrar sesión</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 
-    <div class="content">
-        <h2>Información de tu cuenta</h2>
-        <p>Aquí podrás ver detalles importantes sobre tu cuenta o cualquier otro dato relevante.</p>
+    <!-- Contenido Principal -->
+    <div class="container content">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card-custom">
+                    <img src="https://images.unsplash.com/photo-1586337277800-e05c67202f39" class="card-img-top" alt="Planta">
+                    <div class="card-body">
+                        <h5 class="card-title">Calendario de Riego</h5>
+                        <p class="card-text">Consulta el calendario de riego para mantener tus plantas saludables.</p>
+                        <a href="/CalendarioRiego" class="btn btn-custom">Ver Calendario</a>
+                    </div>
+                </div>
+            </div>
 
-        <!-- Ejemplo de uso de gráficos o estadísticas (esto puede ser dinámico) -->
-        <h3>Estadísticas</h3>
-        <p>Aquí se pueden agregar gráficos o datos numéricos relevantes.</p>
+            <div class="col-md-4">
+                <div class="card card-custom">
+                    <img src="https://images.unsplash.com/photo-1603341373074-89a27cda3eb9" class="card-img-top" alt="Planta">
+                    <div class="card-body">
+                        <h5 class="card-title">Sensores</h5>
+                        <p class="card-text">Monitorea la humedad y la temperatura de tus plantas en tiempo real.</p>
+                        <a href="/Sensores" class="btn btn-custom">Ver Sensores</a>
+                    </div>
+                </div>
+            </div>
 
-        <!-- Ejemplo de tabla de productos o registros (puedes usarlo para mostrar más contenido) -->
-        <h3>Últimos Productos</h3>
-        <table border="1" cellpadding="5">
-            <tr>
-                <th>ID</th>
-                <th>Nombre del Producto</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-            </tr>
-            <% productos.forEach(producto => { %>
-                <tr>
-                    <td><%= producto.idProducto %></td>
-                    <td><%= producto.nombreProducto %></td>
-                    <td><%= producto.precio %></td>
-                    <td><%= producto.cantidadEnStock %></td>
-                </tr>
-            <% }); %>
-        </table>
+            <div class="col-md-4">
+                <div class="card card-custom">
+                    <img src="https://images.unsplash.com/photo-1517653141370-bdf3f585b60b" class="card-img-top" alt="Orquídeas">
+                    <div class="card-body">
+                        <h5 class="card-title">Orquídeas</h5>
+                        <p class="card-text">Conoce todo sobre el cuidado de las orquídeas y optimiza su crecimiento.</p>
+                        <a href="/Orquideas" class="btn btn-custom">Ver Orquídeas</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agregado el nuevo Card para Condiciones Ambientales -->
+            <div class="col-md-4">
+                <div class="card card-custom">
+                    <img src="https://images.unsplash.com/photo-1598626177096-78d1d63e8b90" class="card-img-top" alt="Condiciones Ambientales">
+                    <div class="card-body">
+                        <h5 class="card-title">Condiciones Ambientales</h5>
+                        <p class="card-text">Monitorea las condiciones de temperatura, humedad y luz para mejorar el crecimiento de tus plantas.</p>
+                        <a href="/CondicionesAmbientales" class="btn btn-custom">Ver Condiciones</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Mi Aplicación. Todos los derechos reservados.</p>
+        <p>&copy; 2024 Mi Aplicación de Plantas. Todos los derechos reservados.</p>
     </footer>
 
+    <!-- Scripts de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
+
 </html>
