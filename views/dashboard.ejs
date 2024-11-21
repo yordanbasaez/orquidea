@@ -7,211 +7,178 @@
     <title>Dashboard - Plantas</title>
     <!-- Integración de Bootstrap 4 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Estilo Personalizado -->
+    <!-- Agregar Font Awesome para los íconos (aunque no usaremos el ícono de Google en esta ocasión) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #e9f7ef; /* Fondo suave verde claro */
-            color: #2d2d2d;
-            margin-top: 20px;
-        }
-
-        header {
-            background-color: #2e8b57; /* Verde oscuro */
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-        }
-
-        nav {
-            background-color: #4CAF50;
-            text-align: center; /* Centrar elementos del navbar */
-        }
-
-        nav a {
-            color: white;
-            padding: 12px 20px;
-            font-size: 1rem;
-            text-align: center;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-
-        nav a:hover {
-            background-color: #388e3c;
-        }
-
-        .content {
-            padding: 30px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-            margin-left: 20px;
-            margin-right: 20px;
-        }
-
-        footer {
-            background-color: #2e8b57;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-
-        .navbar-toggler {
-            border-color: #fff;
-        }
-
-        .navbar-toggler-icon {
-            background-color: #fff;
-        }
-
-        /* Imagen de fondo en el header */
-        header {
-            background: url('https://images.unsplash.com/photo-1603341373074-89a27cda3eb9?crop=entropy&cs=tinysrgb&fit=max&ixid=MnwzNjUyOXwwfDF8c2VhY3J8MXx8cGxhbnRzfGVufDB8fHx8fDE2Nzc2Mzg4Mzc&ixlib=rb-1.2.1&q=80&w=1080') no-repeat center center;
-            background-size: cover;
-            color: white;
-        }
-
-        /* Estilo de botones */
-        .btn-custom {
-            background-color: #2e8b57;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-        }
-
-        .btn-custom:hover {
-            background-color: #388e3c;
-            color: white;
-        }
-
-        /* Alertas */
-        #alert-message {
-            display: none;
-            margin-top: 20px;
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 15px;
-            border-radius: 5px;
+        /* Principal Navbar */
+        .bg-lime {
+            background-color: #008f0cc3 !important;
         }
 
         /* Estilo para el contenido dentro de las páginas principales */
+        .content {
+            width: 100%; /* El dashboard ocupará el 75% del ancho de la pantalla */
+            margin:  auto; /* Centramos el contenido */
+        }
+
         .card-custom {
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
+            padding-bottom: 50px; /* Añadido para dar más espacio hacia abajo en el card */
         }
 
         .card-custom img {
-            border-radius: 8px;
+            padding-top: 30px;
+            padding-bottom: 50px;
+            border-radius: 10px;
         }
 
         .card-custom .card-body {
             padding: 20px;
             background-color: #f0f8f0;
         }
+
+        /* Estilo personalizado para los botones de las tarjetas */
+        .btn-custom {
+            background-color: #FF5722; /* Naranja brillante */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .btn-custom:hover {
+            background-color: #FF7043; /* Color más oscuro al pasar el mouse */
+            color: white;
+        }
+
+        /* Estilo para el botón de Cerrar sesión */
+        .navbar-nav .nav-link {
+            background-color: #FF5722; /* Naranja brillante */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .navbar-nav .nav-link:hover {
+            background-color: #FF7043; /* Color más oscuro al pasar el mouse */
+            color: white;
+        }
+
+        /* Estilo para el enlace Home sin color personalizado */
+        .navbar-nav .nav-link {
+            color: rgb(255, 255, 255) !important; /* Se asegura que el enlace Home tenga color negro predeterminado */
+        }
+
+
+        .custom-title {
+        font-size: 31px; /* Ajusta este valor según el tamaño que desees */
+        font-weight:bold; /* Puedes hacerlo más fuerte para destacar más */
+        color: white;
+}
+
+ 
     </style>
 </head>
 
 <body>
 
-    <!-- Barra de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-        <a class="navbar-brand" href="#">Orquideas</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/CalendarioRiego">Calendario Riego</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Sensores">Sensores</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Orquideas/add">Orquídeas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/CondicionesAmbientales">Condiciones Ambientales</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Usuario">Usuario</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">Cerrar sesión</a>
-                </li>
-            </ul>
+  <!-- <nav class="navbar navbar-expand-lg bg-lime">--> 
+    <nav class="navbar navbar-expand-sm bg-lime">
+
+        <div class="container-fluid">
+            <a class="navbar-brand custom-title" href="#">Orquideas</a> <!-- Se agrega la clase custom-title -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                </ul>
+                
+                
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link btn-custom" href="/logout">Cerrar sesión</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
+    
 
-    <!-- Contenido Principal -->
-    <div class="container content">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card card-custom">
-                    <img src="https://images.unsplash.com/photo-1586337277800-e05c67202f39" class="card-img-top" alt="Planta">
-                    <div class="card-body">
-                        <h5 class="card-title">Calendario de Riego</h5>
-                        <p class="card-text">Consulta el calendario de riego para mantener tus plantas saludables.</p>
-                        <a href="/CalendarioRiego" class="btn btn-custom">Ver Calendario</a>
-                    </div>
+    
+<!-- Contenido Principal -->
+<div class="container content">
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <div class="card card-custom">
+                <img src="/Calendario.jpg" class="card-img-top" alt="Planta" style="border-radius: 20px; width: 89%; margin: 0 auto;">  
+                <div class="card-body">
+                    <h5 class="card-title">Calendario de Riego</h5>
+                    <p class="card-text">Consulta el calendario de riego para mantener tus plantas saludables.</p>
+                    <a href="/CalendarioRiego" class="btn btn-custom">Ver Calendario</a>
                 </div>
             </div>
+        </div>
 
-            <div class="col-md-4">
-                <div class="card card-custom">
-                    <img src="https://images.unsplash.com/photo-1603341373074-89a27cda3eb9" class="card-img-top" alt="Planta">
-                    <div class="card-body">
-                        <h5 class="card-title">Sensores</h5>
-                        <p class="card-text">Monitorea la humedad y la temperatura de tus plantas en tiempo real.</p>
-                        <a href="/Sensores" class="btn btn-custom">Ver Sensores</a>
-                    </div>
+        <div class="col-12 col-md-4">
+            <div class="card card-custom">
+                <img src="/Monitoreo" class="card-img-top" alt="Planta" style="border-radius: 20px; width: 100%; margin: 0 auto;">
+                <div class="card-body">
+                    <h5 class="card-title">Sensores</h5>
+                    <p class="card-text">Monitorea la humedad y la temperatura de tus plantas en tiempo real.</p>
+                    <a href="/Sensores" class="btn btn-custom">Ver Sensores</a>
                 </div>
             </div>
+        </div>
 
-            <div class="col-md-4">
-                <div class="card card-custom">
-                    <img src="https://images.unsplash.com/photo-1517653141370-bdf3f585b60b" class="card-img-top" alt="Orquídeas">
-                    <div class="card-body">
-                        <h5 class="card-title">Orquídeas</h5>
-                        <p class="card-text">Conoce todo sobre el cuidado de las orquídeas y optimiza su crecimiento.</p>
-                        <a href="/Orquideas" class="btn btn-custom">Ver Orquídeas</a>
-                    </div>
+        <div class="col-12 col-md-4">
+            <div class="card card-custom">
+               
+                <img src="/tipos-orquideas.jpg" class="card-img-top img-fluid" alt="Orquídeas" style="border-radius: 20px; width: 98%; margin: 0 auto;">
+                <div class="card-body">
+                    <h5 class="card-title">Orquídeas</h5>
+                    <p class="card-text">Conoce todo sobre el cuidado de las orquídeas y optimiza su crecimiento.</p>
+                    <a href="/Orquideas" class="btn btn-custom">Ver Orquídeas</a>
                 </div>
             </div>
+        </div>
 
-            <!-- Agregado el nuevo Card para Condiciones Ambientales -->
-            <div class="col-md-4">
-                <div class="card card-custom">
-                    <img src="https://images.unsplash.com/photo-1598626177096-78d1d63e8b90" class="card-img-top" alt="Condiciones Ambientales">
-                    <div class="card-body">
-                        <h5 class="card-title">Condiciones Ambientales</h5>
-                        <p class="card-text">Monitorea las condiciones de temperatura, humedad y luz para mejorar el crecimiento de tus plantas.</p>
-                        <a href="/CondicionesAmbientales" class="btn btn-custom">Ver Condiciones</a>
-                    </div>
+        
+        <div class="col-12 col-md-4">
+            <div class="card card-custom">
+                <img src="/Ambientales.webp" class="card-img-top" alt="Condiciones Ambientales">
+                <div class="card-body">
+                    <h5 class="card-title">Condiciones Ambientales</h5>
+                    <p class="card-text">Monitorea las condiciones de temperatura, humedad y luz para mejorar el crecimiento de tus plantas.</p>
+                    <a href="/CondicionesAmbientales" class="btn btn-custom">Ver Condiciones</a>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Mi Aplicación de Plantas. Todos los derechos reservados.</p>
-    </footer>
+<div class="card">
+    <div class="card-header text-center">
+        Orquídeas
+    </div>
+    <div class="card-body text-center" style="background-color:#008f0cc3; color: white;">
+        <h5 class="card-title">App para Ventas de Orquídeas</h5>
+        <p class="card-text">&copy; 2024 Mi Aplicación de Plantas. Todos los derechos reservados.</p>
+        <a href="#" class="btn btn-light">Ir a alguna parte</a>
+    </div>
+</div>
 
-    <!-- Scripts de Bootstrap -->
+
+
+
+
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
