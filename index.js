@@ -151,6 +151,8 @@ app.get('/orquideas', (req, res) => {
     });
 });
 
+
+
 // Ruta para agregar una nueva orquídea (GET y POST)
 app.get('/orquideas/nueva', (req, res) => {
     res.render('nuevaOrquidea', { message: null });
@@ -169,6 +171,52 @@ app.post('/orquideas/nueva', (req, res) => {
         res.redirect('/orquideas');
     });
 });
+
+
+
+
+
+
+
+
+
+
+// Ruta De Prueba para Calendario de Riego   Yordan Trabajar en este sector 
+app.get('/CalendarioRiego', (req, res) => {
+    
+    // Datos de ejemplo para mostrar
+    const datosRiego = [
+      {
+        id_riego: 1,
+        id_orquidea: 101,
+        fecha_riego: '2024-11-20',
+        hora_riego: '08:00 AM',
+        creado_en: '2024-11-19 18:30:00'
+      },
+      {
+        id_riego: 2,
+        id_orquidea: 102,
+        fecha_riego: '2024-11-21',
+        hora_riego: '09:30 AM',
+        creado_en: '2024-11-20 19:00:00'
+      }
+    ];
+  
+    // Renderizar la vista 
+    res.render('CalendarioRiego', { datosRiego });
+  });
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Servir el servidor en el puerto configurado
 app.listen(port, () => {
