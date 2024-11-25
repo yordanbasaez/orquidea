@@ -181,6 +181,13 @@ app.post('/orquideas/nueva', (req, res) => {
 
 
 
+
+
+
+
+
+
+
 // Ruta De Prueba para Calendario de Riego   Yordan Trabajar en este sector 
 app.get('/CalendarioRiego', (req, res) => {
     
@@ -214,6 +221,50 @@ app.get('/CalendarioRiego', (req, res) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//FUNCION PARA SENSORES RUTAS SIMULADAS 
+
+// Definir los datos de los sensores
+const sensores = [
+    { id_sensor: 1, id_orquidea: 'A1', tipo_sensor: 'Temperatura', mac_address: '00:14:22:01:23:45', estado: 'Activo' },
+    { id_sensor: 2, id_orquidea: 'B2', tipo_sensor: 'Humedad', mac_address: '00:14:22:01:23:46', estado: 'Inactivo' },
+    { id_sensor: 3, id_orquidea: 'C3', tipo_sensor: 'Luz', mac_address: '00:14:22:01:23:47', estado: 'Activo' }
+];
+
+
+
+// Ruta para mostrar los sensores
+app.get('/sensores', (req, res) => {
+    res.render('Sensores', { sensores: sensores });
+});
 
 
 

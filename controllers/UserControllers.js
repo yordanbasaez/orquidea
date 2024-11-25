@@ -1,6 +1,7 @@
 const User = require('../models/User');
 
 class UserController {
+    
     // Obtener todos los usuarios
     static async getUsers(req, res) {
         try {
@@ -29,5 +30,7 @@ class UserController {
         }
     }
 }
+
+
 
 module.exports = UserController;
